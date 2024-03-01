@@ -1,7 +1,11 @@
 # 2MoonTesting
 This repository contains Login automation testing for website  [2Moon - Capital](https://staging.backtester.2moon.trade/) 
 
-**NOTE:** Currently supports chromedriver, edgeDriver, geckodriver and safaridriver.
+**NOTES:** 
+
+-Currently supports chromedriver, edgeDriver, geckodriver and safaridriver
+
+-By default Chrome is setted as a browser, if you want to change it please modify LoginTest.cs between 20-23 line 
 
 ## Pre-requisites
 

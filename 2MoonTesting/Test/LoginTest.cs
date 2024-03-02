@@ -234,7 +234,7 @@ namespace _2moonTestProject.Tests
                 loginPage.ForgotLinkClick();
             }
             forgotPasswordPage.ResetPassword(Email);
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             test.Log(Status.Info, $"Reset password for this Email : {Email}");
 
             if (driver.Url.Contains("reset-password"))
@@ -253,11 +253,39 @@ namespace _2moonTestProject.Tests
         }
 
         [Test]
-        [Description("Check Reset not Exist User Password Test")]
+        [Description("Verify on entering resetting Email for non-existing use")]
 
         public void ResetPasswordNonExistingUser()
         {
+            string NewUrl = "https://staging.backtester.2moon.trade/forgot-password";
+            var description = TestContext.CurrentContext.Test.Properties.Get("Description").ToString();
+            test = extent.CreateTest(description);
+            string Email = "prueba23@pruebatt7.com";
 
+            if (!driver.Url.Equals(NewUrl))
+            {
+                driver.Navigate().GoToUrl(NewUrl);
+                Thread.Sleep(3000);
+            }
+            else
+            {
+                loginPage.ForgotLinkClick();
+            }
+            forgotPasswordPage.ResetPassword(Email);
+            bool isToastElementPresent = forgotPasswordPage.FindToastElement();
+            test.Log(Status.Info, $"Reset password for this Email : {Email}");
+            if (isToastElementPresent)
+            {
+                test.Pass("Test passed");
+                TakeScreenshot(driver, test);
+            }
+            else
+            {
+                test.Fail("Failed Test");
+                TakeScreenshot(driver, test);
+            }
+
+            Assert.That(isToastElementPresent, Is.EqualTo(true));
 
         }
     }

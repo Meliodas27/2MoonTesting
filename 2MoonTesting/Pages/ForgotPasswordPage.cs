@@ -28,5 +28,35 @@ namespace _2MoonTesting.Pages
         }
 
 
+        public bool FindToastElement()
+        {
+
+
+            var ToastElement = wait.Until<IWebElement>(driver =>
+            {
+                try
+                {
+                    var ToastElementDisplayed = driver.FindElement(By.XPath("//span[@class='text-xs']"));
+                    if (ToastElementDisplayed.Displayed)
+                    {
+                        return ToastElementDisplayed;
+                    }
+                    return null;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return null;
+                }
+                catch (NoSuchElementException)
+                {
+                    return null;
+                }
+            });
+            if (ToastElement != null) return true;
+            return false;
+
+        }
+
+
     }
 }

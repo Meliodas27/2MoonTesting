@@ -107,7 +107,7 @@ namespace _2moonTestProject.Tests
 
 
         [Test]
-        [Description("Check Invalid Email Test")]
+        [Description("Verify on entering invalid Email and valid password, the user can’t login")]
         public void LoginInvalidEmail()
         {
             var description = TestContext.CurrentContext.Test.Properties.Get("Description").ToString();
@@ -134,7 +134,7 @@ namespace _2moonTestProject.Tests
 
 
         [Test]
-        [Description("Check Invalid Password Test")]
+        [Description("Verify on entering valid Email and Invalid password, the user can’t login")]
         public void LoginInvalidPassword()
         {
             var description = TestContext.CurrentContext.Test.Properties.Get("Description").ToString();
@@ -161,7 +161,7 @@ namespace _2moonTestProject.Tests
 
 
         [Test]
-        [Description("Check Invalid Email and Password Test")]
+        [Description("Verify on entering invalid Email and password, the user can’t login")]
 
         public void LoginInvalidEmailAndPassword()
         {
@@ -189,7 +189,7 @@ namespace _2moonTestProject.Tests
 
 
         [Test]
-        [Description("Check Valid Email and  Password Test")]
+        [Description("Verify on entering valid Email and password, the user can login")]
         public void LoginValidCredentials()
         {
             var description = TestContext.CurrentContext.Test.Properties.Get("Description").ToString();
@@ -215,35 +215,35 @@ namespace _2moonTestProject.Tests
         }
 
         [Test]
-        [Description("Check Reset User Password Test")]
+        [Description("Check Reset Password for existing user Test")]
 
         public void ResetPassword()
         {
-            string NewUrl = "https://staging.backtester.2moon.trade/forgot-password";           
+            string NewUrl = "https://staging.backtester.2moon.trade/forgot-password";
             var description = TestContext.CurrentContext.Test.Properties.Get("Description").ToString();
             test = extent.CreateTest(description);
             string Email = "alv.juan.sis@gmail.com";
-            
-            if (!driver.Url.Equals(NewUrl)) 
+
+            if (!driver.Url.Equals(NewUrl))
             {
                 driver.Navigate().GoToUrl(NewUrl);
                 Thread.Sleep(3000);
             }
-            else 
+            else
             {
                 loginPage.ForgotLinkClick();
-            }            
+            }
             forgotPasswordPage.ResetPassword(Email);
             Thread.Sleep(3000);
             test.Log(Status.Info, $"Reset password for this Email : {Email}");
 
-            if(driver.Url.Contains("reset-password")) 
+            if (driver.Url.Contains("reset-password"))
             {
                 test.Pass("Test passed");
                 TakeScreenshot(driver, test);
 
             }
-            else 
+            else
             {
                 test.Fail("Failed Test");
                 TakeScreenshot(driver, test);
@@ -252,6 +252,13 @@ namespace _2moonTestProject.Tests
 
         }
 
+        [Test]
+        [Description("Check Reset not Exist User Password Test")]
 
+        public void ResetPasswordNonExistingUser()
+        {
+
+
+        }
     }
 }
